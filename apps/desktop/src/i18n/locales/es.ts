@@ -8112,6 +8112,7 @@ export default withEnglishFallback({
     sourceTransfer: "Transferencia de datos",
     sourceSqlFile: "Ejecución de archivo SQL",
     sourceStatus: "Control de solo lectura",
+    sourceDataEditor: "Editor de datos",
   },
   processList: {
     title: "Lista de procesos",

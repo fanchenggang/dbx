@@ -8104,6 +8104,7 @@ export default withEnglishFallback({
     sourceTransfer: "資料傳輸",
     sourceSqlFile: "SQL 檔案執行",
     sourceStatus: "唯讀控制",
+    sourceDataEditor: "資料編輯器",
   },
   processList: {
     title: "處理程序清單",

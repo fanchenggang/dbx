@@ -5169,6 +5169,7 @@ export default withEnglishFallback({
     sourceTransfer: "数据传输",
     sourceSqlFile: "SQL 文件执行",
     sourceStatus: "只读控制",
+    sourceDataEditor: "数据编辑器",
   },
   sqlParameters: {
     title: "SQL 参数",

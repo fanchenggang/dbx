@@ -4613,6 +4613,7 @@ export default withEnglishFallback({
     sourceTransfer: "데이터 이전",
     sourceSqlFile: "SQL 파일 실행",
     sourceStatus: "읽기 전용 컨트롤",
+    sourceDataEditor: "데이터 편집기",
   },
   sqlParameters: {
     title: "SQL 매개변수",

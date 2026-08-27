@@ -5184,6 +5184,7 @@ export default {
     sourceTransfer: "Data transfer",
     sourceSqlFile: "SQL file execution",
     sourceStatus: "Read-only control",
+    sourceDataEditor: "Data editor",
   },
   sqlParameters: {
     title: "SQL Parameters",

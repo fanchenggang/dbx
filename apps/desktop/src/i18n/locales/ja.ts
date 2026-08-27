@@ -8164,6 +8164,7 @@ export default withEnglishFallback({
     sourceTransfer: "データ転送",
     sourceSqlFile: "SQL ファイル実行",
     sourceStatus: "読み取り専用コントロール",
+    sourceDataEditor: "データエディター",
   },
   processList: {
     title: "プロセス一覧",

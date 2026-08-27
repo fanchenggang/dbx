@@ -37,6 +37,7 @@ export const useReadOnlyUnlockStore = defineStore("readOnlyUnlock", () => {
   const queue: QueuedUnlockRequest[] = [];
   let resolvePending: ((confirmed: boolean) => void) | undefined;
   let ticker: ReturnType<typeof setInterval> | undefined;
+  let unlockInFlight = false;
 
   function touchNow() {
     nowMs.value = Date.now();
@@ -65,11 +66,13 @@ export const useReadOnlyUnlockStore = defineStore("readOnlyUnlock", () => {
     ticker = undefined;
   }
 
-  function remainingMs(connectionId: string, now = nowMs.value): number {
+  // Always compare against the wall clock at call time: the ticker-fed `nowMs`
+  // goes stale in throttled background tabs and would keep expired windows live.
+  function remainingMs(connectionId: string, now = Date.now()): number {
     return Math.max(0, (windows.value[connectionId] ?? 0) - now);
   }
 
-  function isUnlocked(connectionId: string, now = nowMs.value): boolean {
+  function isUnlocked(connectionId: string, now = Date.now()): boolean {
     return remainingMs(connectionId, now) > 0;
   }
 
@@ -123,13 +126,16 @@ export const useReadOnlyUnlockStore = defineStore("readOnlyUnlock", () => {
 
   async function confirm(durationSecs: WriteUnlockDurationSecs) {
     const request = pending.value;
-    if (!request) return;
+    if (!request || unlockInFlight) return;
+    unlockInFlight = true;
     try {
       const remaining = await api.unlockConnectionWrites(request.connectionId, durationSecs);
       rememberWindow(request.connectionId, remaining);
       settle(true);
     } catch {
       // Keep the dialog open so the user can retry or cancel.
+    } finally {
+      unlockInFlight = false;
     }
   }
 
