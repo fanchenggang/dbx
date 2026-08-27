@@ -1202,8 +1202,9 @@ SELECT @value AS Message;`;
     });
 
     const pendingExecution = execution.tryExecute();
-    await Promise.resolve();
-    expect(productionSafetyStore.pending?.sql).toContain("UPDATE users");
+    await vi.waitFor(() => {
+      expect(productionSafetyStore.pending?.sql).toContain("UPDATE users");
+    });
     expect(executeCurrentSql).not.toHaveBeenCalled();
 
     productionSafetyStore.confirm();
